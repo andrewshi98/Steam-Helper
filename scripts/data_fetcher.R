@@ -18,7 +18,7 @@ RenewData <- function(){
   r <- GET("http://steamspy.com/api.php?request=all")
   local_file <- file("data/game_data.json", 'w')
   if(status_code(r) == 200){
-    update_file <- file("LastUpdate.sdat", 'w')
+    update_file <- file("data/LastUpdate.sdat", 'w')
     cat(as.character(Sys.Date()), file = update_file)
     close(update_file)
     
