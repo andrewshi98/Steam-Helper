@@ -30,7 +30,7 @@ RenewAllData <- function(){
   local_file <- file("data/game_data.json", 'w')
   if(status_code(r) == 200){
     update_file <- file("data/LastUpdateAll.sdat", 'w')
-    cat(as.character(Sys.Date()), file = update_file)
+    cat(as.character(Sys.time()), file = update_file)
     close(update_file)
     
     cat(content(r, "text"), file = local_file)
@@ -45,7 +45,7 @@ Renew2WeekData <- function(){
   local_file <- file("data/game_data_2week.json", 'w')
   if(status_code(r) == 200){
     update_file <- file("data/LastUpdate2Week.sdat", 'w')
-    cat(as.character(Sys.Date()), file = update_file)
+    cat(as.character(Sys.time()), file = update_file)
     close(update_file)
     
     cat(content(r, "text"), file = local_file)
@@ -73,6 +73,11 @@ RenewRealtimeUser <- function(){
              Link = game.links, stringsAsFactors = FALSE)
   
   write.csv(realtime.data, "data/RealtimeUser.csv", row.names = FALSE)
+  
+  update_file <- file("data/LastUpdateRealtime.sdat", 'w')
+  cat(as.character(Sys.time()), file = update_file)
+  close(update_file)
+  
   return (TRUE)
 }
 

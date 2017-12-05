@@ -6,11 +6,13 @@ library(ggiraph)
 library(dplyr)
 library(DT)
 
+source("scripts/data_renewer.R")
+
 RegulateName <- function(data){
   for (i in (1:length(data)))
   {
     if(nchar(data[i])>10){
-      if(nchar(strsplit(data[i], " ")[[1]][1]) < 6){
+      if(nchar(strsplit(data[i], " ")[[1]][1]) < 4){
         data[i] <- sub(" ", "-!", data[i])
         data[i] <- sub(" ", "\n", data[i])
         data[i] <- sub("-!", " ", data[i])
@@ -22,14 +24,14 @@ RegulateName <- function(data){
   return (data)
 }
 
-GenerateCurrentGraph <- function(){
+GenerateCurrentGraph <- function(input, output){
   game.player <- read.csv("data/RealtimeUser.csv", stringsAsFactors = FALSE)
   game.player$textsize <- (game.player$Current.Player^1.5)/nchar(game.player$Name)^1.5
   game.player$regulatedname <- RegulateName(game.player$Name)
   
   packing <- circleProgressiveLayout(game.player$Current.Player, sizetype='area')
   game.player <- cbind(game.player, packing)
-  dat.gg <- circleLayoutVertices(packing, npoints=50)
+  dat.gg <- circleLayoutVertices(packing, npoints=as.numeric(input$sides))
   
   hover.text <- sprintf("%s\nCurrent Player: %s\nDaily Peak: %s", gsub("'", " ", game.player$Name),
                         game.player$Current.Player,
@@ -42,7 +44,7 @@ GenerateCurrentGraph <- function(){
                              colour = "black", alpha = 0.75, show.legend = FALSE) +
     geom_text(data = game.player, aes(x, y, size= textsize,
                                       label = regulatedname)) +
-    scale_size_continuous(range = c(0.2, 6.5)) +
+    scale_size_continuous(range = c(0.5, 8)) +
     
     # General theme:
     theme_void() + 
@@ -62,6 +64,7 @@ RealtimeTable <- function(){
 }
 
 MainPage_Server <- function(input, output){
-  output$realtimegraph <- renderggiraph({GenerateCurrentGraph()})
-  output$realtimetable <- DT::renderDataTable({RealtimeTable()}, escape = FALSE)
+  RenewCheck()
+  output$realtimegraph <- renderggiraph({GenerateCurrentGraph(input, output)})
+  output$realtimetable <- DT::renderDataTable({RealtimeTable()})
 }
