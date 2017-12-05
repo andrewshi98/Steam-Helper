@@ -6,5 +6,14 @@ library(shiny)
 MainPageUI <- function(){
   return (tabPanel("Main Page",
                    #You do exactly the same thing as you would in the ui.R file
-                   checkboxInput("demo_element", "demo_element")))
+                   fluidPage(
+                     theme = "main.css",
+                     if(FALSE){
+                       fluidRow(ggiraphOutput("realtimegraph"))
+                     }else{
+                       fluidRow(dataTableOutput("realtimetable"))
+                       }
+                  )
+                  )
+          )
 }

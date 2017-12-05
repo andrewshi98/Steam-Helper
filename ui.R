@@ -15,7 +15,7 @@ source("scripts/main_page_ui.R")
 shinyUI(
     navbarPage("Steam Helper",
                MainPageUI(),  # The only thing it does is calling the functino.
-                            #function return something like return(tabPanel("title")) 
+                              # function return something like return(tabPanel("title")) 
                tabPanel("Title2"),
                tabPanel("Title3")
     )
