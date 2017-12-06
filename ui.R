@@ -1,7 +1,7 @@
 library(shiny)
 library(plotly)
 
-source("scripts/main_page_ui.R")
+source('server.R')
 
 #   In order to make this project more organized, we
 # only reference functions written in scripts/ that
@@ -14,9 +14,10 @@ source("scripts/main_page_ui.R")
 
 shinyUI(
     navbarPage("Steam Helper",
-               MainPageUI(),  # The only thing it does is calling the functino.
+               MainPageUI(
+                       
+               )  # The only thing it does is calling the functino.
                             #function return something like return(tabPanel("title")) 
-               tabPanel("Title2"),
-               tabPanel("Title3")
+               
     )
 )
