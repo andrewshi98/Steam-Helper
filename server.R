@@ -2,10 +2,14 @@
 
 ##Andrew
 source("scripts/main_page_server.R")
+source("scripts/online_plot_server.R")
+source("scripts/detail_page_server.R")
 ##
 
 #
 
 shinyServer(function(input, output){
   MainPage_Server(input, output)
+  OnlinePlot_Server(input, output)
+  DetailPageServer(input, output)
 })

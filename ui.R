@@ -1,7 +1,10 @@
 library(shiny)
 library(plotly)
+library(shinythemes)
 
 source("scripts/main_page_ui.R")
+source("scripts/online_plot_ui.R")
+source("scripts/detail_page_ui.R")
 
 #   In order to make this project more organized, we
 # only reference functions written in scripts/ that
@@ -16,7 +19,7 @@ shinyUI(
     navbarPage("Steam Helper",
                MainPageUI(),  # The only thing it does is calling the functino.
                               # function return something like return(tabPanel("title")) 
-               tabPanel("Title2"),
-               tabPanel("Title3")
+               OnlinePlotUI(),
+               DetailPageUI()
     )
 )
