@@ -31,7 +31,9 @@ a {
 /* •••••••••••••••••••••••••••••••• */
 .menu {
     position: absolute;
-    width: 500px;
+    min-width: 450px;
+    max-width: 650px;
+    width: 100%;
     pointer-events: none;
     bottom: 35px;
     text-align: center;
@@ -89,8 +91,12 @@ a {
     -ms-flex-direction: column;
     flex-direction: column;
     position: absolute;
-    height: 350px;
-    width: 700px;
+    min-height: 300px;
+    max-height: 400px;
+    min-width: 450px;
+    max-width: 650px;
+    height: 60%;
+    width: 50%;
     overflow: auto;
     z-index: 999;
     color: #000;
