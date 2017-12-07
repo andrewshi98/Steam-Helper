@@ -25,7 +25,7 @@ RandomGameTable <- function(){
   
   random.game.table <- sample_n(steam_data, 1) %>% 
     select(name, developer, publisher, score_rank, userscore) %>% 
-      datatable(escape = FALSE)
+      datatable(escape = FALSE, style = "bootstrap")
   return (random.game.table)
 }
 
