@@ -168,12 +168,12 @@ return3dplot<-function(search=''){
   
   p <- plot_ly(steam_data, x = ~average_forever, y = ~owners, z = ~userscore,
                text=paste0('Name: ',steam_data$name,'<br>No. of Players: ', steam_data$owners,'<br>User Score ',steam_data$userscore),
-               marker = list(color = ~userscore, colors = colors, showscale = TRUE)) %>%
+               marker = list(color = ~userscore, colors = colors, showscale = TRUE), hoverinfo = "text") %>%
     add_markers() %>%
-    layout(title="3D Game User Data",
+    layout(scene= list(title="3D Game User Data",
                         xaxis = list(title = 'Avg. hours played since 2009'),
                         yaxis = list(title = 'No. of players'),
-                        zaxis = list(title = 'User Score'),
+                        zaxis = list(title = 'User Score')),
            annotations = list(
              x = 1.13,
              y = 1.05,
