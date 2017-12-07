@@ -58,13 +58,14 @@ RealtimeTable <- function(){
   game.player <- read.csv("data/RealtimeUser.csv", stringsAsFactors = FALSE) %>% 
     mutate(Name = sprintf('<a href="%s">%s</a>', Link, Name)) %>% 
     select(-Link)
-  game.player.table <- datatable(game.player, escape = FALSE) %>% 
-    formatStyle("Name", backgroundColor = styleInterval(3.4, c('gray', 'white')))
+  game.player.table <- datatable(game.player, escape = FALSE, style = 'bootstrap') %>% 
+    formatStyle(1, color = 'black')
+  
   return (game.player.table)
 }
 
 MainPage_Server <- function(input, output){
-  RenewCheck()
+  RenewCheck_MainPage()
   output$realtimegraph <- renderggiraph({GenerateCurrentGraph(input, output)})
   output$realtimetable <- DT::renderDataTable({RealtimeTable()})
 }

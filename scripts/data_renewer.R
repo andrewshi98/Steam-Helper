@@ -1,6 +1,6 @@
 source("scripts/data_fetcher.R")
 
-RenewCheck <- function(){
+RenewCheck_MainPage <- function(){
   counter <- 0
   open_file <- file("data/LastUpdateRealtime.sdat", "r")
   lastupdate.last <- as.POSIXct(readLines(open_file, warn = FALSE))
@@ -27,4 +27,16 @@ RenewCheck <- function(){
   close(open_file)
   
   return (counter)
+}
+
+RenewCheck_Plot <- function(input, output){
+  
+  open_file <- file("data/LastUpdatePlot.sdat", "r")
+  lastupdate.last <- as.POSIXct(readLines(open_file, warn = FALSE))
+  if(difftime(Sys.time(), lastupdate.last, units = "mins")>60){
+    RenewRealtimePlot()
+  }
+  close(open_file)
+  
+  return (TRUE)
 }

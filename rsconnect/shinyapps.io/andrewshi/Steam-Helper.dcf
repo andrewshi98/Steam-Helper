@@ -1,0 +1,12 @@
+name: Steam-Helper
+title: Steam-Helper
+username:
+account: andrewshi
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 244954
+bundleId: 1118096
+url: https://andrewshi.shinyapps.io/Steam-Helper/
+when: 1512534416.37913
+asMultiple: FALSE
+asStatic: FALSE
