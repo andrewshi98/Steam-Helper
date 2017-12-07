@@ -17,6 +17,20 @@ source("scripts/main_page_server.R")
 
 returnlist <- function(search=''){
   
+  GetGameOptionList <- function(){
+    game.data.file <- file("data/game_data.json", "r")
+    game.data <- jsonlite::fromJSON(readLines(game.data.file))
+    close(game.data.file)
+    game.data <- data.frame(do.call(rbind, game.data), stringsAsFactors = FALSE)
+    
+    option.list <- as.vector(unlist(game.data$appid))
+    names(option.list) <- as.vector(unlist(game.data$name))
+    
+    detail_page_game.data <<-  game.data
+    
+    return (option.list)
+  }
+  
   RemoveList <- function(data) {
     for (i in (1:ncol(data))){
       if(length(data[, i]) == length(unlist(data[, i]))){
@@ -26,17 +40,8 @@ returnlist <- function(search=''){
     return (data)
   }
   
-  steam_data<-jsonlite::fromJSON("data/game_data.json")
-  max.length <- max(sapply(steam_data, length))
-  steam_data <- lapply(steam_data, function(v) { c(v, rep(NA, max.length-length(v)))})
-  steam_data<- do.call(rbind, steam_data)
-  steam_data<- data.frame(steam_data, stringsAsFactors = FALSE)
-  rownames(steam_data)<-NULL
-  steam_data <- RemoveList(steam_data)
-  steam_data$price[steam_data$price=="NULL"]<-"1"
-  steam_data$price[steam_data$price=="0"]<-"1"
-  steam_data$price<-unlist(steam_data$price)
-  steam_data$price<-as.numeric(steam_data$price)
+  data_frame_extraction()
+  steam_data<-data_frame_extraction()
   steam_data<-arrange(steam_data,name)%>%
     arrange(desc(userscore))%>%
     arrange(price)
@@ -79,6 +84,20 @@ returnlist <- function(search=''){
   return(q) 
 }
 
+data_frame_extraction<-function(){
+  steam_data<-jsonlite::fromJSON("data/game_data.json")
+  max.length <- max(sapply(steam_data, length))
+  steam_data <- lapply(steam_data, function(v) { c(v, rep(NA, max.length-length(v)))})
+  steam_data<- do.call(rbind, steam_data)
+  steam_data<- data.frame(steam_data, stringsAsFactors = FALSE)
+  rownames(steam_data)<-NULL
+  steam_data <- RemoveList(steam_data)
+  steam_data$price[steam_data$price=="NULL"]<-"1"
+  steam_data$price[steam_data$price=="0"]<-"1"
+  steam_data$price<-unlist(steam_data$price)
+  steam_data$price<-as.numeric(steam_data$price)
+  return(steam_data)
+}
 
 return3dplot<-function(search=''){
   
@@ -91,17 +110,8 @@ return3dplot<-function(search=''){
     return (data)
   }
   
-  steam_data<-jsonlite::fromJSON("data/game_data.json")
-  max.length <- max(sapply(steam_data, length))
-  steam_data <- lapply(steam_data, function(v) { c(v, rep(NA, max.length-length(v)))})
-  steam_data<- do.call(rbind, steam_data)
-  steam_data<- data.frame(steam_data, stringsAsFactors = FALSE)
-  rownames(steam_data)<-NULL
-  steam_data <- RemoveList(steam_data)
-  steam_data$price[steam_data$price=="NULL"]<-"1"
-  steam_data$price[steam_data$price=="0"]<-"1"
-  steam_data$price<-unlist(steam_data$price)
-  steam_data$price<-as.numeric(steam_data$price)
+  data_frame_extraction()
+  steam_data<-data_frame_extraction()
   steam_data$average_forever<-steam_data$average_forever/60
   steam_data<-arrange(steam_data,name)%>%
     arrange(desc(userscore))%>%
@@ -116,10 +126,10 @@ return3dplot<-function(search=''){
                text=paste0('Name: ',steam_data$name,'<br>No. of Players: ', steam_data$owners,'<br>User Score ',steam_data$userscore),
                marker = list(color = ~userscore, colors = colors, showscale = TRUE)) %>%
     add_markers() %>%
-    layout(title="3D Game User Data",
+    layout(scane=list(title="3D Game User Data",
                         xaxis = list(title = 'Avg. hours played since 2009'),
                         yaxis = list(title = 'No. of players'),
-                        zaxis = list(title = 'User Score'),
+                        zaxis = list(title = 'User Score')),
            annotations = list(
              x = 1.13,
              y = 1.05,
