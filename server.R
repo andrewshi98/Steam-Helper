@@ -14,6 +14,10 @@ source("scripts/random_game_server.R")
 source("scripts/charts_server.R")
 #
 
+##Martin
+source("scripts/Searching_Function_server.R")
+#
+
 shinyServer(function(input, output){
   MainPage_Server(input, output)
   RandomGamePage_Server(input, output)
@@ -21,4 +25,5 @@ shinyServer(function(input, output){
   DetailPageServer(input, output)
   RandomGamePage_Server(input, output)
   Charts_Server(input,output)
+  Searching_Function_Server(input,output)
 })

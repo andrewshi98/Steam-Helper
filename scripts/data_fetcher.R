@@ -83,6 +83,9 @@ RenewRealtimeUser <- function(){
 }
 
 BiggerThan <- function(data, number){
+  if(length(data) == 0){
+    return (FALSE)
+  }
   for(i in (1:length(data))){
     if(data[i] > number){
       return (i)

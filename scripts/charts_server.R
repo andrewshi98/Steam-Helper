@@ -1,7 +1,5 @@
 library(shiny)
-#install.packages("rjson")
-#library(jsonlite)
-library(rjson)
+library(jsonlite)
 library(dplyr)
 library(tidyr)
 library(plotly)
@@ -47,6 +45,34 @@ returnlist <- function(search=''){
     arrange(price)
   steam_data<-steam_data[-c(15777:15814),]
   steam_data$price<-steam_data$price/100
+  
+  #Styling
+  labelfont <- list(
+    color = "rgb(255, 255, 255)"
+  )
+  
+  xstyle = list(title = "Date",
+                gridcolor = 'rgb(150,150,150)',
+                showgrid = TRUE,
+                showline = FALSE,
+                showticklabels = TRUE,
+                tickcolor = 'rgb(127,127,127)',
+                ticks = 'outside',
+                zeroline = FALSE,
+                titlefont = labelfont,
+                tickcolor = toRGB("white"),
+                tickfont = list(color = "rgb(255, 255, 255)"))
+  ystyle = list(title = "Steam User",
+                gridcolor = 'rgb(150, 150, 150)',
+                showgrid = TRUE,
+                showline = FALSE,
+                showticklabels = TRUE,
+                tickcolor = 'rgb(127,127,127)',
+                ticks = 'outside',
+                zeroline = FALSE,
+                titlefont = labelfont,
+                tickfont = list(color = "rgb(255, 255, 255)"))
+  
   q <- steam_data %>%
     plot_ly(
       x = ~price, 
@@ -79,8 +105,8 @@ returnlist <- function(search=''){
       yaxis = list(title = "User Score")
       #margin = list(l = 200)
     )%>%
-    layout(plot_bgcolor='rgb(254, 247, 234)') %>% 
-    layout(paper_bgcolor='rgb(254, 247, 234)')
+    layout(paper_bgcolor='rgba(50, 50, 50, 80)', plot_bgcolor='rgba(100, 100, 100, 50)',
+               xaxis = xstyle, yaxis = ystyle, font = list(color = "white"))
   return(q) 
 }
 
@@ -122,11 +148,43 @@ return3dplot<-function(search=''){
   
   colors <- c('#4AC6B7', '#1972A4', '#965F8A', '#FF7070', '#C61951')
   
+  
+  #Styling
+  labelfont <- list(
+    color = "rgb(255, 255, 255)"
+  )
+  
+  xstyle = list(title = "Date",
+                gridcolor = 'rgb(150,150,150)',
+                showgrid = TRUE,
+                showline = FALSE,
+                showticklabels = TRUE,
+                tickcolor = 'rgb(127,127,127)',
+                ticks = 'outside',
+                zeroline = FALSE,
+                titlefont = labelfont,
+                tickcolor = toRGB("white"),
+                tickfont = list(color = "rgb(255, 255, 255)"))
+  ystyle = list(title = "Steam User",
+                gridcolor = 'rgb(150, 150, 150)',
+                showgrid = TRUE,
+                showline = FALSE,
+                showticklabels = TRUE,
+                tickcolor = 'rgb(127,127,127)',
+                ticks = 'outside',
+                zeroline = FALSE,
+                titlefont = labelfont,
+                tickfont = list(color = "rgb(255, 255, 255)"))
+  
   p <- plot_ly(steam_data, x = ~average_forever, y = ~owners, z = ~userscore,
                text=paste0('Name: ',steam_data$name,'<br>No. of Players: ', steam_data$owners,'<br>User Score ',steam_data$userscore),
-               marker = list(color = ~userscore, colors = colors, showscale = TRUE)) %>%
+               marker = list(color = ~userscore, colors = colors, showscale = TRUE), hoverinfo = "text") %>%
     add_markers() %>%
+<<<<<<< HEAD
     layout(scane=list(title="3D Game User Data",
+=======
+    layout(scene= list(title="3D Game User Data",
+>>>>>>> 605dc6926b8eef06ac927adae9f0896877d99998
                         xaxis = list(title = 'Avg. hours played since 2009'),
                         yaxis = list(title = 'No. of players'),
                         zaxis = list(title = 'User Score')),
@@ -138,9 +196,9 @@ return3dplot<-function(search=''){
              yref = 'paper',
              showarrow = FALSE
            )
-           )%>%
-    layout(plot_bgcolor='rgb(254, 247, 234)') %>% 
-    layout(paper_bgcolor='rgb(254, 247, 234)')
+           ) %>%
+    layout(paper_bgcolor='rgba(50, 50, 50, 80)', plot_bgcolor='rgba(100, 100, 100, 50)',
+           xaxis = xstyle, yaxis = ystyle, font = list(color = "white"))
 return(p)
 }
 

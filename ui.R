@@ -7,6 +7,7 @@ source("scripts/online_plot_ui.R")
 source("scripts/detail_page_ui.R")
 source("scripts/random_game_ui.R")
 source("scripts/charts_ui.R")
+source("scripts/Searching_Function_ui.R")
 
 #   In order to make this project more organized, we
 # only reference functions written in scripts/ that
@@ -24,6 +25,7 @@ shinyUI(
                OnlinePlotUI(),
                DetailPageUI(),
                RandomGameUI(),
-               Charts_UI()
+               Charts_UI(),
+               Searching_Function_UI(),
     )
 )
