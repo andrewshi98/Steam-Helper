@@ -40,25 +40,8 @@ returnlist <- function(search=''){
   steam_data<-arrange(steam_data,name)%>%
     arrange(desc(userscore))%>%
     arrange(price)
-  #steam_data<-steam_data[-c(1),]
-  #steam_data$price<-steam_data$price[-c(6513:6528),]
   steam_data<-steam_data[-c(15777:15814),]
   steam_data$price<-steam_data$price/100
-  
-  #steam_data_price<-data.frame(steam_data$price,stringsAsFactors = FALSE)
-  #steam_data_price[c("15283","15284"),]<-"20.00"
-  #steam_data_price[c("15713"),]<-"49.00"
-  #steam_data_price[steam_data_price=="2"]<-"2.00"
-  #steam_data_price[c("9140"),]<-"4.00"
-  #steam_data_price[c("9190"),]<-"4.20"
-  #steam_data_price[c("10826"),]<-"5.00"
-  #steam_data_price[c("10856"),]<-"5.10"
-  
-  #if(search != ""){
-  #  steam_data_s <- steam_data[steam_data$name == search,]
-  #}else{
-  #  steam_data_s <- steam_data
-  #}
   q <- steam_data %>%
     plot_ly(
       x = ~price, 
@@ -90,12 +73,14 @@ returnlist <- function(search=''){
       xaxis = list(title = "Game price"),
       yaxis = list(title = "User Score")
       #margin = list(l = 200)
-    )
+    )%>%
+    layout(plot_bgcolor='rgb(254, 247, 234)') %>% 
+    layout(paper_bgcolor='rgb(254, 247, 234)')
   return(q) 
 }
 
 
-return3dplot<- function(search=''){
+return3dplot<-function(search=''){
   
   RemoveList <- function(data) {
     for (i in (1:ncol(data))){
@@ -143,7 +128,9 @@ return3dplot<- function(search=''){
              yref = 'paper',
              showarrow = FALSE
            )
-           )
+           )%>%
+    layout(plot_bgcolor='rgb(254, 247, 234)') %>% 
+    layout(paper_bgcolor='rgb(254, 247, 234)')
 return(p)
 }
 
