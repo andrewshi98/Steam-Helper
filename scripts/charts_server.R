@@ -13,6 +13,16 @@ source("scripts/main_page_server.R")
 
 #
 
+
+RemoveList <- function(data) {
+  for (i in (1:ncol(data))){
+    if(length(data[, i]) == length(unlist(data[, i]))){
+      data[, i] <- unlist(data[, i])
+    }
+  }
+  return (data)
+}
+
 returnlist <- function(search=''){
   
   GetGameOptionList <- function(){
@@ -24,18 +34,9 @@ returnlist <- function(search=''){
     option.list <- as.vector(unlist(game.data$appid))
     names(option.list) <- as.vector(unlist(game.data$name))
     
-    detail_page_game.data <<-  game.data
+    detail_page_game.data <<- game.data
     
     return (option.list)
-  }
-  
-  RemoveList <- function(data) {
-    for (i in (1:ncol(data))){
-      if(length(data[, i]) == length(unlist(data[, i]))){
-        data[, i] <- unlist(data[, i])
-      }
-    }
-    return (data)
   }
   
   data_frame_extraction()
@@ -51,7 +52,7 @@ returnlist <- function(search=''){
     color = "rgb(255, 255, 255)"
   )
   
-  xstyle = list(title = "Date",
+  xstyle = list(title = "Price",
                 gridcolor = 'rgb(150,150,150)',
                 showgrid = TRUE,
                 showline = FALSE,
@@ -62,7 +63,7 @@ returnlist <- function(search=''){
                 titlefont = labelfont,
                 tickcolor = toRGB("white"),
                 tickfont = list(color = "rgb(255, 255, 255)"))
-  ystyle = list(title = "Steam User",
+  ystyle = list(title = "User Score",
                 gridcolor = 'rgb(150, 150, 150)',
                 showgrid = TRUE,
                 showline = FALSE,
@@ -154,8 +155,7 @@ return3dplot<-function(search=''){
     color = "rgb(255, 255, 255)"
   )
   
-  xstyle = list(title = "Date",
-                gridcolor = 'rgb(150,150,150)',
+  xstyle = list(gridcolor = 'rgb(150,150,150)',
                 showgrid = TRUE,
                 showline = FALSE,
                 showticklabels = TRUE,
@@ -165,8 +165,7 @@ return3dplot<-function(search=''){
                 titlefont = labelfont,
                 tickcolor = toRGB("white"),
                 tickfont = list(color = "rgb(255, 255, 255)"))
-  ystyle = list(title = "Steam User",
-                gridcolor = 'rgb(150, 150, 150)',
+  ystyle = list(gridcolor = 'rgb(150, 150, 150)',
                 showgrid = TRUE,
                 showline = FALSE,
                 showticklabels = TRUE,
@@ -180,11 +179,7 @@ return3dplot<-function(search=''){
                text=paste0('Name: ',steam_data$name,'<br>No. of Players: ', steam_data$owners,'<br>User Score ',steam_data$userscore),
                marker = list(color = ~userscore, colors = colors, showscale = TRUE), hoverinfo = "text") %>%
     add_markers() %>%
-<<<<<<< HEAD
-    layout(scane=list(title="3D Game User Data",
-=======
     layout(scene= list(title="3D Game User Data",
->>>>>>> 605dc6926b8eef06ac927adae9f0896877d99998
                         xaxis = list(title = 'Avg. hours played since 2009'),
                         yaxis = list(title = 'No. of players'),
                         zaxis = list(title = 'User Score')),

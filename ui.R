@@ -26,6 +26,6 @@ shinyUI(
                DetailPageUI(),
                RandomGameUI(),
                Charts_UI(),
-               Searching_Function_UI(),
+               Searching_Function_UI()
     )
 )
