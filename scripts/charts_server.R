@@ -13,7 +13,8 @@ source("scripts/main_page_server.R")
 
 #
 
-
+#unlists the data frame so that the list data in the columns
+#are converted to vectors to enable easy data manipulation
 RemoveList <- function(data) {
   for (i in (1:ncol(data))){
     if(length(data[, i]) == length(unlist(data[, i]))){
@@ -23,22 +24,8 @@ RemoveList <- function(data) {
   return (data)
 }
 
+#function returns a plotly scatterplot animation
 returnlist <- function(search=''){
-  
-  GetGameOptionList <- function(){
-    game.data.file <- file("data/game_data.json", "r")
-    game.data <- jsonlite::fromJSON(readLines(game.data.file))
-    close(game.data.file)
-    game.data <- data.frame(do.call(rbind, game.data), stringsAsFactors = FALSE)
-    
-    option.list <- as.vector(unlist(game.data$appid))
-    names(option.list) <- as.vector(unlist(game.data$name))
-    
-    detail_page_game.data <<- game.data
-    
-    return (option.list)
-  }
-  
   data_frame_extraction()
   steam_data<-data_frame_extraction()
   steam_data<-arrange(steam_data,name)%>%
@@ -46,6 +33,7 @@ returnlist <- function(search=''){
     arrange(price)
   steam_data<-steam_data[-c(15777:15814),]
   steam_data$price<-steam_data$price/100
+  #^divided by 100 to convert cents into usd
   
   #Styling
   labelfont <- list(
@@ -74,6 +62,7 @@ returnlist <- function(search=''){
                 titlefont = labelfont,
                 tickfont = list(color = "rgb(255, 255, 255)"))
   
+  #q stores the plotly scatterplot animation
   q <- steam_data %>%
     plot_ly(
       x = ~price, 
@@ -111,6 +100,7 @@ returnlist <- function(search=''){
   return(q) 
 }
 
+#function extracts the dataframe from the JSON data
 data_frame_extraction<-function(){
   steam_data<-jsonlite::fromJSON("data/game_data.json")
   max.length <- max(sapply(steam_data, length))
@@ -126,6 +116,7 @@ data_frame_extraction<-function(){
   return(steam_data)
 }
 
+#function returns a 3D scatterplot
 return3dplot<-function(search=''){
   
   RemoveList <- function(data) {
@@ -139,6 +130,7 @@ return3dplot<-function(search=''){
   
   data_frame_extraction()
   steam_data<-data_frame_extraction()
+  #divided by 60 to convert mins to hours
   steam_data$average_forever<-steam_data$average_forever/60
   steam_data<-arrange(steam_data,name)%>%
     arrange(desc(userscore))%>%
@@ -197,6 +189,9 @@ return3dplot<-function(search=''){
 return(p)
 }
 
+#shiny server implementation which
+#integrates the plotly plots in
+#the shiny app
 Charts_Server<-function(input, output){
   
   output$scatter <- renderPlotly({ 

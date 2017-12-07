@@ -18,12 +18,6 @@ Charts_UI<-function(){
                tabPanel(
                  "Game User Data Visuals",
                         
-                        # Side panel for controls
-                 
-                        
-                        # Input to select variable to map
-                        
-                        
                         # Main panel: display plotly map
                         mainPanel(
                           plotlyOutput('scatter'),
