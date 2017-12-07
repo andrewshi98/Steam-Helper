@@ -20,6 +20,7 @@ shinyUI(
                MainPageUI(),  # The only thing it does is calling the functino.
                               # function return something like return(tabPanel("title")) 
                OnlinePlotUI(),
-               DetailPageUI()
+               DetailPageUI(),
+               RandomGameUI()
     )
 )
