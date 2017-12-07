@@ -20,6 +20,8 @@ source("scripts/project_description_server.R")
 source("scripts/Searching_Function_server.R")
 #
 
+#Server Structure
+
 shinyServer(function(input, output){
   MainPage_Server(input, output)
   RandomGamePage_Server(input, output)

@@ -54,6 +54,8 @@ GenerateCurrentGraph <- function(input, output){
   return(widg)
 }
 
+#Reading real time table
+
 RealtimeTable <- function(){
   game.player <- read.csv("data/RealtimeUser.csv", stringsAsFactors = FALSE) %>% 
     mutate(Name = sprintf('<a href="%s">%s</a>', Link, Name)) %>% 
@@ -72,6 +74,8 @@ RemoveList <- function(data) {
   }
   return (data)
 }
+
+#Function that extract data
 
 data_frame_extraction<-function(){
   steam_data<-jsonlite::fromJSON("data/game_data.json")

@@ -1,5 +1,6 @@
 library(shiny)
 
+#Returns list of name in data set
 GetDataRowOption <- function(){
   option.list <- colnames(game.data.raw)
   option.list <- option.list[(5:length(option.list))]
@@ -9,6 +10,7 @@ GetDataRowOption <- function(){
   return (option.list.name)
 }
 
+#Output the custom graph
 CustomGraphUI <- function(){
   return (tabPanel("Custom Graph",
                    #You do exactly the same thing as you would in the ui.R file
