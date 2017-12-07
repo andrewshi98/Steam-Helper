@@ -20,7 +20,13 @@ RandomGameTable <- function(){
   #removing the row names
   row.names(steam_data)<-NULL
   
+  #matching every name with their appid to make a hyperlink that will send you to the steam store
   steam_data$name <- paste0('<a href= http://store.steampowered.com/app/', steam_data$appid,'>',steam_data$name, '<a/>')
+  
+  #renaming columns for better style and understanding
+  steam_data <- rename(steam_data, Name = name, Developer = developer,
+                       Publisher = publisher, CriticScore = score_rank,
+                       UserScore = userscore)
   
   #takes in the steam_data frame then selects 10 random rows, selects only name, 
   #publisher, developer, score_rank and userscore into the printed data
@@ -38,6 +44,5 @@ RandomGamePage_Server <- function(input, output){
     output$randomgametable <- renderDataTable(RandomGameTable(), escape = FALSE)
   })
 }
-paste0('<a href= http://store.steampowered.com/app/', steam_data$appid,'>',steam_data$name, '<a/>')
 
   
