@@ -27,11 +27,7 @@ shinyUI(
                DetailPageUI(),
                RandomGameUI(),
                Charts_UI(),
-<<<<<<< HEAD
                Searching_Function_UI(),
                project_description_UI()
-=======
-               Searching_Function_UI()
->>>>>>> 30f7e07dab73f242d7c524c6e193493b060bc687
     )
 )

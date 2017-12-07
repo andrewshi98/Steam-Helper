@@ -35,7 +35,7 @@ a {
     max-width: 650px;
     width: 100%;
     pointer-events: none;
-    bottom: 35px;
+    bottom: 5%;
     text-align: center;
     z-index: 2;
 }
@@ -44,7 +44,7 @@ a {
     display: inline-block;
     text-decoration: none;
     border: 2px solid #263238;
-    color: #263238;
+    color: #ffffff;
     pointer-events: auto;
     line-height: 40px;
     position: relative;
@@ -57,6 +57,7 @@ a {
     user-select: none;
     overflow: hidden;
     border-radius: 50px;
+    background: #263238de;
 }
 .menu__link::before {
     content: attr(data-hover);
@@ -103,6 +104,7 @@ a {
     box-sizing: border-box;
     background-color: #ECEFF1;
     left: calc(50% - 200px);
+    border-radius: 5px;
 }
 /* panel content (only for animation delay after open) */
 .panel-content {
@@ -126,6 +128,9 @@ a {
     z-index: 1;
     background: -webkit-radial-gradient(center ellipse, #ffffff 0%, #CFD8DC 100%);
     background: radial-gradient(ellipse at center, #ffffff 0%, #CFD8DC 100%);
+    /*background-size: cover;*/
+    background-repeat: no-repeat;
+    background-position: center;
     /* Particle.js demo */
 }
 .panel#home canvas {

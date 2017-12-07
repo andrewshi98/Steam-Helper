@@ -13,7 +13,7 @@ DetailPageServer <- function(input, output){
     background.url <- r$header_image
     game.name <- as.character(detail_page_game.data$name[detail_page_game.data$appid==input$select])
     html <- sub("%url", background.url, html)
-    html <- sub("%name", game.name, html)
+    #html <- sub("%name", game.name, html)
     HTML(html)
     })
 }

@@ -5,6 +5,9 @@ library(knitr)
 
 project_description_server <- function(input, output) {
   output$markdown <- renderUI({
-    HTML(markdown::markdownToHTML(knit('Project Description.rmd', quiet = TRUE)))
+    about.file <- file("scripts/about.html", "r")
+    about.file.text <- readLines(about.file)
+    close(about.file)
+    HTML(about.file.text)
   })
 }
