@@ -44,7 +44,7 @@ GenerateCurrentGraph <- function(input, output){
                              colour = "black", alpha = 0.75, show.legend = FALSE) +
     geom_text(data = game.player, aes(x, y, size= textsize,
                                       label = regulatedname)) +
-    scale_size_continuous(range = c(0.5, 8)) +
+    scale_size_continuous(range = c(0.5, 7)) +
     
     # General theme:
     theme_void() + 

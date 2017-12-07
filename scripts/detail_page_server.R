@@ -3,7 +3,7 @@ library(dplyr)
 library(jsonlite)
 
 DetailPageServer <- function(input, output){
-  html.file <- file("www/fancy.html")
+  html.file <- file("www/game_detail.html")
   html <- readLines(html.file)
   close(html.file)
   output$text <- renderUI({

@@ -10,9 +10,11 @@ DetailPageUI <- function(){
                    tags$head(tags$script(src="game_detail.js")),
                    #You do exactly the same thing as you would in the ui.R file
                    fluidPage(
-                     selectInput("select", label = "Choose a game",
-                                 choices = GetGameOptionList(),
-                                 selected = 1),
+                     column(3, align="center",
+                            selectInput("select", label = "Choose A Game",
+                                        choices = GetGameOptionList(),
+                                        selected = 1)
+                     ),
                      htmlOutput("text")
                    )
   )

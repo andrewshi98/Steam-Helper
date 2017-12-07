@@ -112,7 +112,7 @@ Searching_Function_Server<-function(input, output) {
     
     colnames(info)[1:5]<- c("Name", "Number of Player Played This Game", "Variance of Previous Column",
                             "Average of Minutes Player Spending in This Game", "Meidan of Minutes Player Spending in This Game")
-  
+    #The table being rendered
     info  
   })
 
