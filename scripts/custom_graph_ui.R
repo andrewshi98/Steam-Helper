@@ -22,7 +22,7 @@ data_frame_extraction<-function(){
   steam_data$price[steam_data$price=="NULL"]<-"1"
   steam_data$price[steam_data$price=="0"]<-"1"
   steam_data$price<-unlist(steam_data$price)
-  steam_data$price<-as.numeric(steam_data$price)
+  steam_data$price<-as.numeric(steam_data$price)/100
   return(steam_data)
 }
 
