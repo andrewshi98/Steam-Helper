@@ -8,6 +8,7 @@ source("scripts/detail_page_ui.R")
 source("scripts/random_game_ui.R")
 source("scripts/charts_ui.R")
 source("scripts/Searching_Function_ui.R")
+source("scripts/project_description_ui.R")
 
 #   In order to make this project more organized, we
 # only reference functions written in scripts/ that
@@ -27,5 +28,6 @@ shinyUI(
                RandomGameUI(),
                Charts_UI(),
                Searching_Function_UI(),
+               project_description_UI()
     )
 )

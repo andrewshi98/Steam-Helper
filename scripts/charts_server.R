@@ -180,11 +180,7 @@ return3dplot<-function(search=''){
                text=paste0('Name: ',steam_data$name,'<br>No. of Players: ', steam_data$owners,'<br>User Score ',steam_data$userscore),
                marker = list(color = ~userscore, colors = colors, showscale = TRUE), hoverinfo = "text") %>%
     add_markers() %>%
-<<<<<<< HEAD
-    layout(scane=list(title="3D Game User Data",
-=======
     layout(scene= list(title="3D Game User Data",
->>>>>>> 605dc6926b8eef06ac927adae9f0896877d99998
                         xaxis = list(title = 'Avg. hours played since 2009'),
                         yaxis = list(title = 'No. of players'),
                         zaxis = list(title = 'User Score')),
