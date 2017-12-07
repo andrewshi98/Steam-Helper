@@ -3,6 +3,7 @@ library(plotly)
 library(shinythemes)
 
 source("scripts/main_page_ui.R")
+source("scripts/custom_graph_ui.R")
 source("scripts/online_plot_ui.R")
 source("scripts/detail_page_ui.R")
 source("scripts/random_game_ui.R")
@@ -24,6 +25,7 @@ shinyUI(
                MainPageUI(),  # The only thing it does is calling the functino.
                               # function return something like return(tabPanel("title")) 
                OnlinePlotUI(),
+               CustomGraphUI(),
                DetailPageUI(),
                RandomGameUI(),
                Charts_UI(),

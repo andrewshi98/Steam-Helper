@@ -13,7 +13,7 @@ Searching_Function_UI<-function(){
                                  sidebarPanel(
                                    h3("Game Description"),
                                    htmlOutput('detailed_description', escape = FALSE),
-                                   h3("genres"),
+                                   h3("Genres"),
                                    textOutput('genres')
                                    ),
                                  mainPanel(

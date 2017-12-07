@@ -28,11 +28,17 @@ RandomGameTable <- function(){
                        Publisher = publisher, CriticScore = score_rank,
                        UserScore = userscore)
   
-  #takes in the steam_data frame then selects 10 random rows, selects only name, 
+  #takes in the steam_data frame then selects 30 random rows, selects only name, 
   #publisher, developer, score_rank and userscore into the printed data
-  random.game.table <- sample_n(steam_data_m, 10) %>% 
-    select(Name, Developer, Publisher, CriticScore, UserScore) %>% 
-    datatable(escape = FALSE, style = "bootstrap", rownames = FALSE)
+  random.game.table <- sample_n(steam_data_m, 30) %>% 
+    select(Name, Developer, Publisher, CriticScore, UserScore)
+  
+  random.game.table$Name <- unlist(random.game.table$Name)
+  random.game.table$Developer <- unlist(random.game.table$Developer)
+  random.game.table$Publisher <- unlist(random.game.table$Publisher)
+  random.game.table$CriticScore <- unlist(random.game.table$CriticScore)
+  random.game.table$UserScore <- unlist(random.game.table$UserScore)
+  random.game.table <- datatable(random.game.table, escape = FALSE, style = "bootstrap", rownames = FALSE)
   return (random.game.table)
 }
 
