@@ -12,12 +12,11 @@ source("scripts/main_page_ui.R")
 # scripts:
 #   {file name}_ui/server.R
 
-shinyUI(
-    navbarPage("Steam Helper",
-               MainPageUI(), # The only thing it does is calling the functino.
-                            #function return something like return(tabPanel("title"))
+Charts_UI<-function(){
+    return(
+               
                tabPanel(
-                 "Visual Representation",
+                 "Game User Data Visuals",
                         
                         # Side panel for controls
                  
@@ -37,4 +36,4 @@ shinyUI(
                         )
                         
                )
-))
+    )}

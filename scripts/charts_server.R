@@ -149,7 +149,7 @@ return3dplot<- function(search=''){
 return(p)
 }
 
-shinyServer(function(input, output){
+Charts_Server<-function(input, output){
   
   output$scatter <- renderPlotly({ 
     return(returnlist(input$search))
@@ -157,4 +157,4 @@ shinyServer(function(input, output){
   output$scatter3d <- renderPlotly({
     return(return3dplot(input$search))
   })
-})
+}
