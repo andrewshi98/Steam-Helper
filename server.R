@@ -10,6 +10,8 @@ source("scripts/detail_page_server.R")
 source("scripts/random_game_server.R")
 ##
 
+##Sailesh
+source("scripts/charts_server.R")
 #
 
 shinyServer(function(input, output){
@@ -18,4 +20,6 @@ shinyServer(function(input, output){
   OnlinePlot_Server(input, output)
   DetailPageServer(input, output)
   RandomGamePage_Server(input, output)
+  Charts_Server(input,output)
+  
 })
