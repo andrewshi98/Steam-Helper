@@ -27,6 +27,105 @@ a {
     text-decoration: none;
     color: #FFF;
 }
+.btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+buttons.less:14
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+slate.min.css:11
+.btn-info {
+    background-image: -webkit-linear-gradient(#74cae3, #5bc0de 60%, #4ab9db);
+    background-image: -o-linear-gradient(#74cae3, #5bc0de 60%, #4ab9db);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#74cae3), color-stop(60%, #5bc0de), to(#4ab9db));
+    background-image: linear-gradient(#74cae3, #5bc0de 60%, #4ab9db);
+    background-repeat: no-repeat;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff74cae3', endColorstr='#ff4ab9db', GradientType=0);
+    -webkit-filter: none;
+    filter: none;
+}
+slate.min.css:11
+.btn, .btn:hover {
+    border-color: rgba(0,0,0,0.6);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+slate.min.css:11
+.btn-info {
+    color: #ffffff;
+    background-color: #5bc0de;
+    border-color: #5bc0de;
+}
+slate.min.css:11
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+buttons.less:11
+.btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+buttons.less:14
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
 /* Navigation menu */
 /* •••••••••••••••••••••••••••••••• */
 .menu {
@@ -114,8 +213,11 @@ a {
     transition: all 700ms;
     -webkit-transition-delay: 600ms;
     transition-delay: 600ms;
-    padding: 100px 200px;
+    padding: 4%;
+    padding-left: 3%;
     margin-top: -5%;
+    width: 100%;
+    height: 100%;
 }
 /* Panel content animation after open */
 .panel:target .panel-content {
@@ -142,7 +244,7 @@ a {
 /*  Specific panel "Fade" effect */
 /* •••••••••••••••••••••••••••••••• */
 .panel#fade {
-    background-color: #00C853;
+    background: radial-gradient(ellipse at center, #464646 0%, #2f2f2f 100%);
     opacity: 0;
     -webkit-transition: all 800ms;
     transition: all 800ms;
@@ -161,3 +263,28 @@ a {
 .game_detail_wrapper{
   
 }
+
+.desctiption_box{
+    background: #969696;
+    min-height: 1em;
+    border-radius: 2px;
+    border: 1px solid #eee;
+    padding: 2%;
+    font-weight: 400;
+    font-family: Montserrat,sans-serif;
+    width: 100%;
+    height: 80%;
+    overflow-wrap: break-word;
+    overflow-y: auto;
+    font-size: 13;
+}
+
+.close_button {
+  
+    align-self: center;
+    bottom: 10px;
+    margin-top: 10px;
+    margin-left: 40%;
+    width: 20%;
+    position: absolute;
+} /* Gray */
