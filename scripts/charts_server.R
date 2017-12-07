@@ -1,7 +1,5 @@
 library(shiny)
-#install.packages("rjson")
-#library(jsonlite)
-library(rjson)
+library(jsonlite)
 library(dplyr)
 library(tidyr)
 library(plotly)
@@ -15,51 +13,67 @@ source("scripts/main_page_server.R")
 
 #
 
+
+RemoveList <- function(data) {
+  for (i in (1:ncol(data))){
+    if(length(data[, i]) == length(unlist(data[, i]))){
+      data[, i] <- unlist(data[, i])
+    }
+  }
+  return (data)
+}
+
 returnlist <- function(search=''){
   
-  RemoveList <- function(data) {
-    for (i in (1:ncol(data))){
-      if(length(data[, i]) == length(unlist(data[, i]))){
-        data[, i] <- unlist(data[, i])
-      }
-    }
-    return (data)
+  GetGameOptionList <- function(){
+    game.data.file <- file("data/game_data.json", "r")
+    game.data <- jsonlite::fromJSON(readLines(game.data.file))
+    close(game.data.file)
+    game.data <- data.frame(do.call(rbind, game.data), stringsAsFactors = FALSE)
+    
+    option.list <- as.vector(unlist(game.data$appid))
+    names(option.list) <- as.vector(unlist(game.data$name))
+    
+    detail_page_game.data <<- game.data
+    
+    return (option.list)
   }
   
-  setwd("~/Desktop/Steam-Helper/")
-  steam_data<-fromJSON(file=paste0(getwd(),"/data/game_data.json"))
-  max.length <- max(sapply(steam_data, length))
-  steam_data <- lapply(steam_data, function(v) { c(v, rep(NA, max.length-length(v)))})
-  steam_data<- do.call(rbind, steam_data)
-  steam_data<- data.frame(steam_data, stringsAsFactors = FALSE)
-  rownames(steam_data)<-NULL
-  steam_data <- RemoveList(steam_data)
-  steam_data$price[steam_data$price=="NULL"]<-"1"
-  steam_data$price[steam_data$price=="0"]<-"1"
-  steam_data$price<-unlist(steam_data$price)
-  steam_data$price<-as.numeric(steam_data$price)
+  data_frame_extraction()
+  steam_data<-data_frame_extraction()
   steam_data<-arrange(steam_data,name)%>%
     arrange(desc(userscore))%>%
     arrange(price)
-  #steam_data<-steam_data[-c(1),]
-  #steam_data$price<-steam_data$price[-c(6513:6528),]
   steam_data<-steam_data[-c(15777:15814),]
   steam_data$price<-steam_data$price/100
   
-  #steam_data_price<-data.frame(steam_data$price,stringsAsFactors = FALSE)
-  #steam_data_price[c("15283","15284"),]<-"20.00"
-  #steam_data_price[c("15713"),]<-"49.00"
-  #steam_data_price[steam_data_price=="2"]<-"2.00"
-  #steam_data_price[c("9140"),]<-"4.00"
-  #steam_data_price[c("9190"),]<-"4.20"
-  #steam_data_price[c("10826"),]<-"5.00"
-  #steam_data_price[c("10856"),]<-"5.10"
+  #Styling
+  labelfont <- list(
+    color = "rgb(255, 255, 255)"
+  )
   
-  #if(search != ""){
-  #  steam_data_s <- steam_data[steam_data$name == search,]
-  #}else{
-  #  steam_data_s <- steam_data
-  #}
+  xstyle = list(title = "Price",
+                gridcolor = 'rgb(150,150,150)',
+                showgrid = TRUE,
+                showline = FALSE,
+                showticklabels = TRUE,
+                tickcolor = 'rgb(127,127,127)',
+                ticks = 'outside',
+                zeroline = FALSE,
+                titlefont = labelfont,
+                tickcolor = toRGB("white"),
+                tickfont = list(color = "rgb(255, 255, 255)"))
+  ystyle = list(title = "User Score",
+                gridcolor = 'rgb(150, 150, 150)',
+                showgrid = TRUE,
+                showline = FALSE,
+                showticklabels = TRUE,
+                tickcolor = 'rgb(127,127,127)',
+                ticks = 'outside',
+                zeroline = FALSE,
+                titlefont = labelfont,
+                tickfont = list(color = "rgb(255, 255, 255)"))
+  
   q <- steam_data %>%
     plot_ly(
       x = ~price, 
@@ -91,24 +105,14 @@ returnlist <- function(search=''){
       xaxis = list(title = "Game price"),
       yaxis = list(title = "User Score")
       #margin = list(l = 200)
-    )
+    )%>%
+    layout(paper_bgcolor='rgba(50, 50, 50, 80)', plot_bgcolor='rgba(100, 100, 100, 50)',
+               xaxis = xstyle, yaxis = ystyle, font = list(color = "white"))
   return(q) 
 }
 
-
-return3dplot<- function(search=''){
-  
-  RemoveList <- function(data) {
-    for (i in (1:ncol(data))){
-      if(length(data[, i]) == length(unlist(data[, i]))){
-        data[, i] <- unlist(data[, i])
-      }
-    }
-    return (data)
-  }
-  
-  setwd("~/Desktop/Steam-Helper/")
-  steam_data<-fromJSON(file=paste0(getwd(),"/data/game_data.json"))
+data_frame_extraction<-function(){
+  steam_data<-jsonlite::fromJSON("data/game_data.json")
   max.length <- max(sapply(steam_data, length))
   steam_data <- lapply(steam_data, function(v) { c(v, rep(NA, max.length-length(v)))})
   steam_data<- do.call(rbind, steam_data)
@@ -119,6 +123,22 @@ return3dplot<- function(search=''){
   steam_data$price[steam_data$price=="0"]<-"1"
   steam_data$price<-unlist(steam_data$price)
   steam_data$price<-as.numeric(steam_data$price)
+  return(steam_data)
+}
+
+return3dplot<-function(search=''){
+  
+  RemoveList <- function(data) {
+    for (i in (1:ncol(data))){
+      if(length(data[, i]) == length(unlist(data[, i]))){
+        data[, i] <- unlist(data[, i])
+      }
+    }
+    return (data)
+  }
+  
+  data_frame_extraction()
+  steam_data<-data_frame_extraction()
   steam_data$average_forever<-steam_data$average_forever/60
   steam_data<-arrange(steam_data,name)%>%
     arrange(desc(userscore))%>%
@@ -129,14 +149,40 @@ return3dplot<- function(search=''){
   
   colors <- c('#4AC6B7', '#1972A4', '#965F8A', '#FF7070', '#C61951')
   
+  
+  #Styling
+  labelfont <- list(
+    color = "rgb(255, 255, 255)"
+  )
+  
+  xstyle = list(gridcolor = 'rgb(150,150,150)',
+                showgrid = TRUE,
+                showline = FALSE,
+                showticklabels = TRUE,
+                tickcolor = 'rgb(127,127,127)',
+                ticks = 'outside',
+                zeroline = FALSE,
+                titlefont = labelfont,
+                tickcolor = toRGB("white"),
+                tickfont = list(color = "rgb(255, 255, 255)"))
+  ystyle = list(gridcolor = 'rgb(150, 150, 150)',
+                showgrid = TRUE,
+                showline = FALSE,
+                showticklabels = TRUE,
+                tickcolor = 'rgb(127,127,127)',
+                ticks = 'outside',
+                zeroline = FALSE,
+                titlefont = labelfont,
+                tickfont = list(color = "rgb(255, 255, 255)"))
+  
   p <- plot_ly(steam_data, x = ~average_forever, y = ~owners, z = ~userscore,
                text=paste0('Name: ',steam_data$name,'<br>No. of Players: ', steam_data$owners,'<br>User Score ',steam_data$userscore),
-               marker = list(color = ~userscore, colors = colors, showscale = TRUE)) %>%
+               marker = list(color = ~userscore, colors = colors, showscale = TRUE), hoverinfo = "text") %>%
     add_markers() %>%
-    layout(title="3D Game User Data",
+    layout(scene= list(title="3D Game User Data",
                         xaxis = list(title = 'Avg. hours played since 2009'),
                         yaxis = list(title = 'No. of players'),
-                        zaxis = list(title = 'User Score'),
+                        zaxis = list(title = 'User Score')),
            annotations = list(
              x = 1.13,
              y = 1.05,
@@ -145,11 +191,13 @@ return3dplot<- function(search=''){
              yref = 'paper',
              showarrow = FALSE
            )
-           )
+           ) %>%
+    layout(paper_bgcolor='rgba(50, 50, 50, 80)', plot_bgcolor='rgba(100, 100, 100, 50)',
+           xaxis = xstyle, yaxis = ystyle, font = list(color = "white"))
 return(p)
 }
 
-shinyServer(function(input, output){
+Charts_Server<-function(input, output){
   
   output$scatter <- renderPlotly({ 
     return(returnlist(input$search))
@@ -157,4 +205,4 @@ shinyServer(function(input, output){
   output$scatter3d <- renderPlotly({
     return(return3dplot(input$search))
   })
-})
+}

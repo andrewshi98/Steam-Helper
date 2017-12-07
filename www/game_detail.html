@@ -1,31 +1,21 @@
-
-    <head>
-        <meta charset="UTF-8">
-            <title>CSS 3D Flip Box</title>
-                
-            <link rel="stylesheet" href="game_detail.css">
-    </head>
-            
-            <div class="col_third">
-                <div class="hover panel">
-                    <div class="front">
-                        <div class="box1" style=" background: url('%s') no-repeat;
-                            -webkit-background-size: cover;
-                            -moz-background-size: cover;
-                            -o-background-size: cover;
-                            background-size: cover;">
-                            <p>%q</p>
-                        </div>
-                    </div>
-                    <div class="back">
-                        <div class="box2">
-                            <p>Back Side</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        
-        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-            
-            <script src="game_detail.js"></script>
+<!-- Home Panel  -->
+<link rel="stylesheet" href="game_detail.css">
+<div class="game_detail_wrapper">
+  <div class="panel" id="home">
+    <!-- Navigation -->
+    <div class="menu">
+        <a class="menu__link" href="%store_link" data-hover="View Store Page">Slice</a>
+        <a class="menu__link" href="#fade" data-hover="Show Game Information">Fade</a>
+    </div>
+    <div id="particles"></div>
+    <h1>%name</h1>
+  </div>
+  
+  
+  <div class="panel" id="fade">
+      <div class="panel-content">
+          <a href="#home">Close me.</a>
+      </div>
+  </div>
+  
+</div>

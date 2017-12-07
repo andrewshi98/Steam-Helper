@@ -2,7 +2,7 @@ library(jsonlite)
 
 GetGameOptionList <- function(){
   game.data.file <- file("data/game_data.json", "r")
-  game.data <- fromJSON(readLines(game.data.file))
+  game.data <- jsonlite::fromJSON(readLines(game.data.file))
   close(game.data.file)
   game.data <- data.frame(do.call(rbind, game.data), stringsAsFactors = FALSE)
   
