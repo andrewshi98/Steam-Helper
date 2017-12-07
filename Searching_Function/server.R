@@ -17,6 +17,8 @@ steam_data<- steam_data[steam_data$name != "",]
 
 
 
+
+
 more.steam.data<- function(id.number, option){
   base.url<-('http://store.steampowered.com/api/appdetails')
   parameter <- list(appids = id.number)
@@ -32,38 +34,89 @@ more.steam.data<- function(id.number, option){
     return (parsed.data[[1]]$data$supported_languages)
   }else if(option == "website"){
     return (parsed.data[[1]]$data$website)
+  }else if(option == "about_the_game"){
+    return (parsed.data[[1]]$data$about_the_game)
+  }else if(option == "detailed_description"){
+    return (parsed.data[[1]]$data$detailed_description)
   }
 }
 
 function(input, output) {
   
   
+  output$searchBar = renderUI({
+    selectInput('text', label = h2("Search by Name"), 
+                as.character(steam_data$name),multiple=FALSE, selectize=TRUE)
+  })
+  
+  output$searchBar.Developer = renderUI({
+    
+    
+    selectInput('Developer', label = h2("Search by Developer"), 
+                c(as.character(steam_data$developer),"All Developer" ), selected= "All Developer", 
+                multiple=FALSE, selectize=TRUE)
+    
+  })
+  
+
 
     
   
   output$basic.info <- renderTable({ 
     
-    filter(steam_data, name %in% input$text) %>% 
-      select(name, developer, publisher, owners, owners_variance,score_rank, positive,negative, price) # Rank,
+    info<-filter(steam_data, name %in% input$text) %>% 
+      select(name, developer, publisher, owners, owners_variance,score_rank, positive,negative, price)
+    
+    colnames(info)[1:9]<- c("Name","Developer","Publisher","Owner",
+                            "Owners Variance", "Score Rank","Positive", "Negative", "Price")
+    
+    info
     })
+  
+  output$basic.info.developer <- renderTable({ 
+    
+    developer.data<-steam_data %>% 
+      filter(as.numeric(score_rank)> as.numeric(input$ratings[1])) %>% 
+      filter(as.numeric(input$ratings[2]) > as.numeric(score_rank)) %>% 
+      select(name, developer, publisher, owners, owners_variance,score_rank, positive,negative, price)
+    colnames(developer.data)[1:9]<- c("Name","Developer","Publisher","Owner",
+                            "Owners Variance", "Score Rank","Positive", "Negative", "Price")
+    
+    if(input$Developer == "All Developer"){
+      filter(developer.data, Developer != "")
+    }else{
+      filter(developer.data, Developer %in% input$Developer)
+    }
+      
+  })
+  
+  
+  
   
   output$two.weeks <- renderTable({ 
     
-    filter(steam_data, name %in% input$text) %>% 
+    info<-filter(steam_data, name %in% input$text) %>% 
       select(name,players_2weeks,players_2weeks_variance,average_2weeks,median_2weeks)
+    
+    colnames(info)[1:5]<- c("Name", "Number of Player Played This Game", "Variance of Previous Column",
+                            "Average of Minutes Player Spending in This Game", "Meidan of Minutes Player Spending in This Game")
+    
+    info
+      
   })
   
   output$forever <- renderTable({ 
     
-    filter(steam_data, name %in% input$text) %>% 
+    info<-filter(steam_data, name %in% input$text) %>% 
       select(name,players_forever,players_forever_variance,average_forever,median_forever)
+    
+    colnames(info)[1:5]<- c("Name", "Number of Player Played This Game", "Variance of Previous Column",
+                            "Average of Minutes Player Spending in This Game", "Meidan of Minutes Player Spending in This Game")
+  
+    info  
   })
 
-  
-  output$searchBar = renderUI({
-    selectInput('text', label = h2("Search by Name"), as.character(steam_data$name),multiple=FALSE, selectize=TRUE)
-  })
- 
+
 
   output$imageforUI = renderUI({
     get.appId<-as.numeric(filter(steam_data, name %in% input$text)$appid)
@@ -72,10 +125,16 @@ function(input, output) {
   
   })
   
-  output$discription = renderText({
+  output$detailed_description = renderText({
     
     get.appId<-as.numeric(filter(steam_data, name %in% input$text)$appid)
-    more.steam.data(get.appId,"short_description")
+    test<-more.steam.data(get.appId,"short_description")
+    if(test == ""){
+      more.steam.data(get.appId,"detailed_description")
+    }else{
+      test
+    }
+    
   })
   
   output$supported_languages = renderText({
@@ -90,5 +149,7 @@ function(input, output) {
     the.type<-more.steam.data(get.appId,"genres")
     as.list(select(the.type, description))$description
   })
+  
+  
   
 }
