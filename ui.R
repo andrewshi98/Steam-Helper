@@ -1,6 +1,8 @@
+source("scripts/main_page_server.R")
 source('scripts/main_page_ui.R')
-source('scripts/main_page_server.R')
-source('test.R')
+source('server.R')
+source('scripts/random_game_server.R')
+source('scripts/random_game_ui.R')
 #   In order to make this project more organized, we
 # only reference functions written in scripts/ that
 # has ui as well as server information stored.
