@@ -2,7 +2,8 @@
 
 library(shiny)
 
-fluidPage( 
+Searching_Function_UI<-function(){
+  return(fluidPage( 
   tabsetPanel(
     tabPanel("Search by Name",
       uiOutput('searchBar'),
@@ -57,4 +58,4 @@ fluidPage(
            helpText('price - US price in cents.')
     )
   )
-)
+))}

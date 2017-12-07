@@ -3,7 +3,7 @@ library("jsonlite")
 library("dplyr")
 library("data.table")
 
-setwd('~/Desktop/INFO201/repo/Steam-Helper/')
+#setwd('~/Desktop/INFO201/repo/Steam-Helper/')
 
 #read steam_data
 steam_data<-read_json('data/game_data.json')
@@ -41,7 +41,7 @@ more.steam.data<- function(id.number, option){
   }
 }
 
-function(input, output) {
+Searching_Function_Server<-function(input, output) {
   
   
   output$searchBar = renderUI({
