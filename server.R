@@ -21,5 +21,4 @@ shinyServer(function(input, output){
   DetailPageServer(input, output)
   RandomGamePage_Server(input, output)
   Charts_Server(input,output)
-  
 })

@@ -26,8 +26,7 @@ returnlist <- function(search=''){
     return (data)
   }
   
-  setwd("~/Desktop/Steam-Helper/")
-  steam_data<-fromJSON(file=paste0(getwd(),"/data/game_data.json"))
+  steam_data<-jsonlite::fromJSON("data/game_data.json")
   max.length <- max(sapply(steam_data, length))
   steam_data <- lapply(steam_data, function(v) { c(v, rep(NA, max.length-length(v)))})
   steam_data<- do.call(rbind, steam_data)
@@ -107,8 +106,7 @@ return3dplot<- function(search=''){
     return (data)
   }
   
-  setwd("~/Desktop/Steam-Helper/")
-  steam_data<-fromJSON(file=paste0(getwd(),"/data/game_data.json"))
+  steam_data<-jsonlite::fromJSON("data/game_data.json")
   max.length <- max(sapply(steam_data, length))
   steam_data <- lapply(steam_data, function(v) { c(v, rep(NA, max.length-length(v)))})
   steam_data<- do.call(rbind, steam_data)

@@ -24,6 +24,6 @@ shinyUI(
                OnlinePlotUI(),
                DetailPageUI(),
                RandomGameUI(),
-               Charts_ui()
+               Charts_UI()
     )
 )
