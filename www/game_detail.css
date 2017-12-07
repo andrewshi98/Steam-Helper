@@ -89,8 +89,8 @@ a {
     -ms-flex-direction: column;
     flex-direction: column;
     position: absolute;
-    height: 300px;
-    width: 500px;
+    height: 350px;
+    width: 700px;
     overflow: auto;
     z-index: 999;
     color: #000;
@@ -124,8 +124,8 @@ a {
 }
 .panel#home canvas {
     position: absolute;
-    height: 300px;
-    width: 500px;
+    height: 350px;
+    width: 700px;
     display: block;
 }
 /*  Specific panel "Fade" effect */
